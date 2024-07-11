@@ -108,7 +108,7 @@ function ClubsPage({ params }) {
             label="URL slug"
             value={slug}
             onValueChange={setSlug}
-            description={`This will be the URL for your group:  https://TODOexample.com/clubs/${
+            description={`This will be the URL for your group:  https://rsvp.place/clubs/${
               slug || "your-group-here"
             }`}
             maxLength={70}
