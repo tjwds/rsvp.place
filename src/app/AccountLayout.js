@@ -56,6 +56,9 @@ export default function AccountLayout({ children }) {
                 <li>
                   <a href="https://github.com/tjwds/rsvp.place">GitHub</a>
                 </li>
+                <li>
+                  <a href="https://discord.gg/Bexfsz9D">Discord</a>
+                </li>
               </ul>
             </div>
           </div>
