@@ -54,7 +54,7 @@ export default function AccountLayout({ children }) {
               <div className="pb-2">rsvp.place © 2024 Joe Woods.</div>
               <ul>
                 <li>
-                  <a href="mailto:hi@rsvp.place">
+                  <a href="mailto:hi@rsvp.place" className="flex items-center">
                     <FontAwesomeIcon
                       icon={faEnvelope}
                       style={{ width: "1em", marginRight: "0.3em" }}
@@ -63,7 +63,10 @@ export default function AccountLayout({ children }) {
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/tjwds/rsvp.place">
+                  <a
+                    href="https://github.com/tjwds/rsvp.place"
+                    className="flex items-center"
+                  >
                     <FontAwesomeIcon
                       icon={faGithub}
                       style={{ width: "1em", marginRight: "0.3em" }}
@@ -72,7 +75,10 @@ export default function AccountLayout({ children }) {
                   </a>
                 </li>
                 <li>
-                  <a href="https://discord.gg/Bexfsz9D">
+                  <a
+                    href="https://discord.gg/Bexfsz9D"
+                    className="flex items-center"
+                  >
                     <FontAwesomeIcon
                       icon={faDiscord}
                       style={{ width: "1em", marginRight: "0.3em" }}
