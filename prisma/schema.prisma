@@ -1,0 +1,157 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  email         String?   @unique
+  emailVerified DateTime?
+  accounts      Account[]
+  sessions      Session[]
+
+  // TODO does this not get updated? :-/
+  clubsWhereAdmin    Club[]   @relation(fields: [clubsWhereAdminIds], references: [id])
+  clubsWhereAdminIds String[] @db.ObjectId
+
+  RSVPs   RSVP[]
+  profile Profile?
+
+  sentMessages NotificationMessage[] @relation("sentBy")
+
+  notificationThreadIds String[]             @db.ObjectId
+  notificationThreads   NotificationThread[] @relation(fields: [notificationThreadIds], references: [id])
+
+  seenMessageIds String[]              @db.ObjectId
+  seenMessages   NotificationMessage[] @relation("seenBy", fields: [seenMessageIds], references: [id])
+
+  @@map("users")
+}
+
+model Profile {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  // TODO …hmm.
+  // username String @unique
+
+  name String?
+  bio  String?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique @db.ObjectId
+}
+
+model Club {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  admins       User[]   @relation(fields: [adminUserIds], references: [id])
+  adminUserIds String[] @db.ObjectId
+
+  events Event[]
+
+  name        String
+  description String
+  slug        String @unique
+
+  verified Boolean @default(false)
+
+  messagesSentFor NotificationMessage[]
+}
+
+model Event {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  club   Club   @relation(fields: [clubId], references: [id])
+  clubId String @db.ObjectId
+
+  title       String
+  description String
+  startTime   DateTime
+  endTime     DateTime
+
+  location  String
+  address   String?
+  // XXX prisma doesn't support geojson… yet?
+  latitude  Float?
+  longitude Float?
+
+  isCancelled Boolean @default(false)
+
+  RSVPs RSVP[]
+}
+
+model RSVP {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+
+  Event   Event  @relation(fields: [eventId], references: [id])
+  eventId String @db.ObjectId
+
+  time DateTime @default(now())
+}
+
+model NotificationThread {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  participatingUserIds String[] @db.ObjectId
+  participatingUsers   User[]   @relation(fields: [participatingUserIds], references: [id])
+
+  messages NotificationMessage[]
+
+  lastActivity DateTime @default(now())
+}
+
+model NotificationMessage {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  sentBy        User    @relation(fields: [sentByUserId], references: [id], name: "sentBy")
+  sentByUserId  String  @db.ObjectId
+  sentForClub   Club?   @relation(fields: [sentForClubId], references: [id])
+  sentForClubId String? @db.ObjectId
+
+  content String
+  sentAt  DateTime @default(now())
+
+  thread               NotificationThread @relation(fields: [notificationThreadId], references: [id])
+  notificationThreadId String             @db.ObjectId
+
+  seenByIds String[] @db.ObjectId
+  seenBy    User[]   @relation(fields: [seenByIds], references: [id], name: "seenBy")
+
+  notifiedForExternally Boolean @default(false)
+}

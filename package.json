@@ -1,0 +1,36 @@
+{
+  "name": "event-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@auth/mongodb-adapter": "^2.0.12",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "github:fortawesome/react-fontawesome",
+    "@nextui-org/react": "^2.3.6",
+    "@prisma/client": "^5.8.1",
+    "framer-motion": "^10.18.0",
+    "leaflet": "^1.9.4",
+    "mongodb": "^6.3.0",
+    "next": "14.0.4",
+    "next-auth": "^4.24.5",
+    "nodemailer": "^6.9.14",
+    "prisma": "^5.8.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-leaflet": "^4.2.1",
+    "react-markdown": "^9.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0"
+  }
+}
