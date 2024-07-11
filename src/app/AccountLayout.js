@@ -10,7 +10,7 @@ export default function AccountLayout({ children }) {
     <ErrorProvider>
       <AuthContext>
         <Nav />
-          {/* TODO …I do not remember why I added these z-40s. */}
+        {/* TODO …I do not remember why I added these z-40s. */}
         <div className="flex z-40 w-full h-auto justify-center min-h-[70vh]">
           <div className="z-40 flex px-6 gap-4 w-full flex-col relative items-left h-[var(--navbar-height)] max-w-[1024px]">
             {children}
@@ -49,9 +49,14 @@ export default function AccountLayout({ children }) {
             </div>
             <div>
               <div className="pb-2">rsvp.place © 2024 Joe Woods.</div>
-              <div>
-                <a href="mailto:hi@rsvp.place">Contact us</a>
-              </div>
+              <ul>
+                <li>
+                  <a href="mailto:hi@rsvp.place">Contact us</a>
+                </li>
+                <li>
+                  <a href="https://github.com/tjwds/rsvp.place">GitHub</a>
+                </li>
+              </ul>
             </div>
           </div>
         </footer>
