@@ -4,6 +4,9 @@ import AuthContext from "./AuthContext";
 import Nav from "./Nav";
 import { ErrorProvider } from "@/hooks/useError";
 import { ErrorMessage } from "@/elements/ErrorMessage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCodeBranch, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export default function AccountLayout({ children }) {
   return (
@@ -51,13 +54,31 @@ export default function AccountLayout({ children }) {
               <div className="pb-2">rsvp.place © 2024 Joe Woods.</div>
               <ul>
                 <li>
-                  <a href="mailto:hi@rsvp.place">Contact us</a>
+                  <a href="mailto:hi@rsvp.place">
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      style={{ width: "1em", marginRight: "0.3em" }}
+                    />
+                    Contact us
+                  </a>
                 </li>
                 <li>
-                  <a href="https://github.com/tjwds/rsvp.place">GitHub</a>
+                  <a href="https://github.com/tjwds/rsvp.place">
+                    <FontAwesomeIcon
+                      icon={faGithub}
+                      style={{ width: "1em", marginRight: "0.3em" }}
+                    />
+                    GitHub
+                  </a>
                 </li>
                 <li>
-                  <a href="https://discord.gg/Bexfsz9D">Discord</a>
+                  <a href="https://discord.gg/Bexfsz9D">
+                    <FontAwesomeIcon
+                      icon={faDiscord}
+                      style={{ width: "1em", marginRight: "0.3em" }}
+                    />
+                    Discord
+                  </a>
                 </li>
               </ul>
             </div>
