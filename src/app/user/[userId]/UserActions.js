@@ -33,6 +33,9 @@ export default function UserActions({ user: originalUser, userId }) {
     window.location.href = `/clubs/${clubSlug}`;
   };
 
+  const clubsWhereAdminIds = new Set();
+  user.clubsWhereAdmin.forEach(({ id }) => clubsWhereAdminIds.add(id));
+
   return (
     <Skeleton isLoaded={!loading}>
       {user.thisIsYou ? (
