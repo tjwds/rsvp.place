@@ -54,5 +54,29 @@ export async function withAuth(callback, include) {
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   }
 
+  const userNotification = await prisma.userNotification.findUnique({
+    where: {
+      forUserId: user.id,
+    },
+  });
+
+  if (!userNotification) {
+    await prisma.userNotification.create({
+      data: {
+        forUserId: user.id,
+        lastSawUser: new Date(),
+      },
+    });
+  } else {
+    await prisma.userNotification.update({
+      where: {
+        forUserId: user.id,
+      },
+      data: {
+        lastSawUser: new Date(),
+      },
+    });
+  }
+
   return await callback({ user });
 }

@@ -62,6 +62,8 @@ model User {
   seenMessageIds String[]              @db.ObjectId
   seenMessages   NotificationMessage[] @relation("seenBy", fields: [seenMessageIds], references: [id])
 
+  userNotification UserNotification?
+
   @@map("users")
 }
 
@@ -154,4 +156,14 @@ model NotificationMessage {
   seenBy    User[]   @relation(fields: [seenByIds], references: [id], name: "seenBy")
 
   notifiedForExternally Boolean @default(false)
+}
+
+model UserNotification {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  forUser   User   @relation(fields: [forUserId], references: [id])
+  forUserId String @unique @db.ObjectId
+
+  lastNotification DateTime?
+  lastSawUser      DateTime?
 }
