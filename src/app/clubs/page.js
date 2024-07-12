@@ -14,6 +14,7 @@ import AccountLayout from "../AccountLayout";
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import Loader from "@/elements/Loader";
 
 function ClubsPage() {
   const [loading, setLoading] = useState(true);
@@ -32,11 +33,11 @@ function ClubsPage() {
 
   if (status !== "loading" && !session) {
     window.location.href = "/api/auth/signin";
-    return <>loading…</>;
+    return <Loader />;
   }
 
   if (loading) {
-    return <>loading…</>;
+    return <Loader />;
   }
 
   return (

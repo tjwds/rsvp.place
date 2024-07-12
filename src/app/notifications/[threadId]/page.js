@@ -6,6 +6,7 @@ import AccountLayout from "../../AccountLayout";
 import { Card, CardBody, Chip, Link } from "@nextui-org/react";
 import { humanReadableDateRange } from "../../utils/humanReadableDateRange";
 import Markdown from "react-markdown";
+import Loader from "@/elements/Loader";
 
 function NotificationsPage({ params }) {
   const [loading, setLoading] = useState(true);
@@ -21,7 +22,7 @@ function NotificationsPage({ params }) {
   }, [loading]);
 
   if (loading) {
-    return <>loading…</>;
+    return <Loader />;
   }
 
   return (

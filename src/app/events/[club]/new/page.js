@@ -16,6 +16,7 @@ import { useError } from "@/hooks/useError";
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import Loader from "@/elements/Loader";
 
 function ClubsPage({ params }) {
   // TODO update from edit page
@@ -96,11 +97,11 @@ function ClubsPage({ params }) {
 
   if (status !== "loading" && !session) {
     window.location.href = "/api/auth/signin";
-    return <>loading…</>;
+    return <Loader />;
   }
 
   if (loading) {
-    return <>loading…</>;
+    return <Loader />;
   }
 
   return (

@@ -84,7 +84,7 @@ export default function Nav() {
               />
               {/* XXX why tf is this z-index necessary? */}
               <NavbarMenu className="z-40">
-                <div className="mx-4 mt-2 flex flex-col gap-2 max-w-lg place-self-center">
+                <div className="mx-4 mt-2 flex flex-col gap-2 max-w-lg place-self-center min-w-[300px]">
                   <NavbarMenuItem>
                     <Link color="foreground" href="/">
                       Home

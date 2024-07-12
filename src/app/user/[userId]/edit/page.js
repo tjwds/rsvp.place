@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 
 import { useError } from "@/hooks/useError";
 import { useSession } from "next-auth/react";
+import Loader from "@/elements/Loader";
 
 // TODO this url _sucks_ dude.
 
@@ -73,11 +74,11 @@ function EditProfilePage({ params }) {
 
   if (status !== "loading" && !session) {
     window.location.href = "/api/auth/signin";
-    return <>loading…</>;
+    return <Loader />;
   }
 
   if (loading) {
-    return <>loading…</>;
+    return <Loader />;
   }
 
   return (

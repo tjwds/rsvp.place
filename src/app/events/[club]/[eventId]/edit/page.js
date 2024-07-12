@@ -17,6 +17,7 @@ import ConfirmButton from "@/elements/ConfirmButton";
 import Map from "@/elements/Map";
 import { useError } from "@/hooks/useError";
 import { useSession } from "next-auth/react";
+import Loader from "@/elements/Loader";
 
 function ClubsPage({ params }) {
   const [title, setTitle] = useState("");
@@ -133,11 +134,11 @@ function ClubsPage({ params }) {
 
   if (status !== "loading" && !session) {
     window.location.href = "/api/auth/signin";
-    return <>loading…</>;
+    return <Loader />;
   }
 
   if (loading) {
-    return <>loading…</>;
+    return <Loader />;
   }
 
   return (
