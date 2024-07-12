@@ -14,11 +14,11 @@ import AccountLayout from "../../../AccountLayout";
 import { useEffect, useState } from "react";
 
 import { useError } from "@/hooks/useError";
+import { useSession } from "next-auth/react";
 
 // TODO this url _sucks_ dude.
 
 function EditProfilePage({ params }) {
-  // todo redirect if not auth'd && thjs session is not this user!
   const [name, setName] = useState("");
   const [originalName, setOriginalName] = useState("");
   const [description, setDescription] = useState("");
@@ -68,6 +68,13 @@ function EditProfilePage({ params }) {
     return;
     // TODO there's another thing that uses getClub that _really_ ought to have loading be a dependency……… right?
   }, [loading]);
+
+  const { status, data: session } = useSession();
+
+  if (status !== "loading" && !session) {
+    window.location.href = "/api/auth/signin";
+    return <>loading…</>;
+  }
 
   if (loading) {
     return <>loading…</>;

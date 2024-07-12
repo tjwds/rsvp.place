@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 
 import ConfirmButton from "@/elements/ConfirmButton";
 import { useError } from "@/hooks/useError";
+import { useSession } from "next-auth/react";
 
 function ClubsPage({ params }) {
-  // todo redirect if not auth'd
   const [loading, setLoading] = useState(true);
   // TODO this is probably wrong everywhere
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,6 +57,13 @@ function ClubsPage({ params }) {
     setLoading(true);
     window.location.href = "/notifications/";
   };
+
+  const { status, data: session } = useSession();
+
+  if (status !== "loading" && !session) {
+    window.location.href = "/api/auth/signin";
+    return <>loading…</>;
+  }
 
   if (loading) {
     return <>loading…</>;

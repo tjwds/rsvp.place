@@ -15,9 +15,9 @@ import Map from "@/elements/Map";
 import { useError } from "@/hooks/useError";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 function ClubsPage({ params }) {
-  // todo redirect if not auth'd
   // TODO update from edit page
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -91,6 +91,13 @@ function ClubsPage({ params }) {
         setLoading(false);
       });
   }, [loading]);
+
+  const { status, data: session } = useSession();
+
+  if (status !== "loading" && !session) {
+    window.location.href = "/api/auth/signin";
+    return <>loading…</>;
+  }
 
   if (loading) {
     return <>loading…</>;

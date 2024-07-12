@@ -13,9 +13,9 @@ import {
 import AccountLayout from "../AccountLayout";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 function ClubsPage() {
-  // todo redirect if not auth'd
   const [loading, setLoading] = useState(true);
   const [clubs, setClubs] = useState([]);
 
@@ -27,6 +27,13 @@ function ClubsPage() {
         setClubs(res.data || []);
       });
   }, [loading]);
+
+  const { status, data: session } = useSession();
+
+  if (status !== "loading" && !session) {
+    window.location.href = "/api/auth/signin";
+    return <>loading…</>;
+  }
 
   if (loading) {
     return <>loading…</>;

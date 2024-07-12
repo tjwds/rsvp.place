@@ -16,9 +16,9 @@ import { useEffect, useState } from "react";
 import ConfirmButton from "@/elements/ConfirmButton";
 import Map from "@/elements/Map";
 import { useError } from "@/hooks/useError";
+import { useSession } from "next-auth/react";
 
 function ClubsPage({ params }) {
-  // todo redirect if not auth'd
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -128,6 +128,13 @@ function ClubsPage({ params }) {
         setLoading(false);
       });
   }, [loading]);
+
+  const { status, data: session } = useSession();
+
+  if (status !== "loading" && !session) {
+    window.location.href = "/api/auth/signin";
+    return <>loading…</>;
+  }
 
   if (loading) {
     return <>loading…</>;
