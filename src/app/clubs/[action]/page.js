@@ -120,9 +120,8 @@ function ClubsPage({ params }) {
               slug || "your-group-here"
             }`}
             maxLength={70}
-            pattern="[a-z-]+"
+            pattern="[a-z0-9\-]+"
             isRequired={true}
-            // TODO make this always lowercase, etc. etc.
           />
           <Textarea
             label="Description"
