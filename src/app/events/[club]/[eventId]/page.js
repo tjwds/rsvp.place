@@ -81,7 +81,7 @@ async function ClubsPage({ params }) {
               </>
             )}
           </div>
-          <Markdown className="pb-4">{event.description}</Markdown>
+          <Markdown className="pb-4 space-y-4">{event.description}</Markdown>
           <div className="flex justify-items-end space-x-2">
             <RegistrationButton
               event={event}

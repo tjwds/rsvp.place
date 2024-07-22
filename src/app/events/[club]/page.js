@@ -51,7 +51,7 @@ async function ClubsPage({ params }) {
             ))}
           </div>
         </div>
-        <Markdown className="pb-4">{club.description}</Markdown>
+        <Markdown className="pb-4 space-y-4">{club.description}</Markdown>
         <ClubToggles slug={params.club} events={events} />
         <div className="pb-4">
           {events.map((event, id) => {
