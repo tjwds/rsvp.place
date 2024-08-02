@@ -22,7 +22,7 @@ export default function UserActions({ user: originalUser, userId }) {
     await fetch(`/api/clubs/${clubId}/admins`, {
       method: "POST",
       body: JSON.stringify({
-        user: params.userId,
+        user: userId,
         makeAdmin,
       }),
       headers: {
