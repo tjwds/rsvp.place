@@ -51,7 +51,7 @@ export default function AccountLayout({ children }) {
               </ul>
             </div>
             <div>
-              <div className="pb-2">rsvp.place © 2024 Joe Woods.</div>
+              <div className="pb-2">rsvp.place © 2025 Joe Woods.</div>
               <ul>
                 <li>
                   <a href="mailto:hi@rsvp.place" className="flex items-center">
