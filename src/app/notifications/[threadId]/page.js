@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 import AccountLayout from "../../AccountLayout";
 import { Card, CardBody, Chip, Link } from "@nextui-org/react";
@@ -8,7 +8,9 @@ import { humanReadableDateRange } from "../../utils/humanReadableDateRange";
 import Markdown from "react-markdown";
 import Loader from "@/elements/Loader";
 
-function NotificationsPage({ params }) {
+function NotificationsPage({ params: paramsPromise }) {
+  // Next 15: `params` is a Promise; `use` unwraps it in a client component.
+  const params = use(paramsPromise);
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
 

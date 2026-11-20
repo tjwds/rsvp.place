@@ -14,7 +14,9 @@ async function getUser(params) {
   return data || {};
 }
 
-async function UserBioPage({ params }) {
+async function UserBioPage({ params: paramsPromise }) {
+  // Next 15: `params` is a Promise.
+  const params = await paramsPromise;
   const user = await getUser(params);
 
   const clubsWhereAdminIds = new Set();

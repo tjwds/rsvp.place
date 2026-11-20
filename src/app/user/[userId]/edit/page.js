@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import AccountLayout from "../../../AccountLayout";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 import { useError } from "@/hooks/useError";
 import { useSession } from "next-auth/react";
@@ -19,7 +19,9 @@ import Loader from "@/elements/Loader";
 
 // TODO this url _sucks_ dude.
 
-function EditProfilePage({ params }) {
+function EditProfilePage({ params: paramsPromise }) {
+  // Next 15: `params` is a Promise; `use` unwraps it in a client component.
+  const params = use(paramsPromise);
   const [name, setName] = useState("");
   const [originalName, setOriginalName] = useState("");
   const [description, setDescription] = useState("");

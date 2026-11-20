@@ -20,7 +20,9 @@ async function getClub(slug) {
   return data || {};
 }
 
-async function ClubsPage({ params }) {
+async function ClubsPage({ params: paramsPromise }) {
+  // Next 15: `params` is a Promise.
+  const params = await paramsPromise;
   const { club, events } = await getClub(params.club);
 
   return (
