@@ -21,7 +21,9 @@ async function getEvent(params) {
   return data || {};
 }
 
-async function ClubsPage({ params }) {
+async function ClubsPage({ params: paramsPromise }) {
+  // Next 15: `params` is a Promise.
+  const params = await paramsPromise;
   const event = await getEvent(params);
 
   return (

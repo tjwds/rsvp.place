@@ -3,14 +3,16 @@
 import { Breadcrumbs, BreadcrumbItem, Textarea } from "@nextui-org/react";
 import AccountLayout from "../../../../AccountLayout";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 import ConfirmButton from "@/elements/ConfirmButton";
 import { useError } from "@/hooks/useError";
 import { useSession } from "next-auth/react";
 import Loader from "@/elements/Loader";
 
-function ClubsPage({ params }) {
+function ClubsPage({ params: paramsPromise }) {
+  // Next 15: `params` is a Promise; `use` unwraps it in a client component.
+  const params = use(paramsPromise);
   const [loading, setLoading] = useState(true);
   // TODO this is probably wrong everywhere
   const [isSubmitting, setIsSubmitting] = useState(false);

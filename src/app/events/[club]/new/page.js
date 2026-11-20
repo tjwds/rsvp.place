@@ -14,11 +14,13 @@ import { now, getLocalTimeZone } from "@internationalized/date";
 import Map from "@/elements/Map";
 import { useError } from "@/hooks/useError";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Loader from "@/elements/Loader";
 
-function ClubsPage({ params }) {
+function ClubsPage({ params: paramsPromise }) {
+  // Next 15: `params` is a Promise; `use` unwraps it in a client component.
+  const params = use(paramsPromise);
   // TODO update from edit page
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
