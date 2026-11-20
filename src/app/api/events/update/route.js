@@ -23,7 +23,9 @@ export async function POST(req) {
     isNaN(new Date(endTime).getTime()) ||
     !slug ||
     !location ||
-    !id
+    // Event ids are MongoDB ObjectIds; anything else would make Prisma throw.
+    typeof id !== "string" ||
+    !/^[0-9a-f]{24}$/i.test(id)
   ) {
     return NextResponse.json({ error: "No data" }, { status: 400 });
   }
@@ -43,12 +45,13 @@ export async function POST(req) {
       where: { id },
     });
 
-    if (!originalEvent?.clubId === club.id) {
+    // The caller is an admin of `slug`'s club; the event must belong to it.
+    if (!originalEvent || originalEvent.clubId !== club.id) {
       return NextResponse.json({ error: "No data" }, { status: 400 });
     }
 
     const event = await prisma.event.update({
-      where: { id },
+      where: { id, clubId: club.id },
       data: {
         title,
         description,
